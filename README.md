@@ -1,10 +1,14 @@
 # chess_game
 This is a repository containing the code for running a basic chess game
 
-     Notes and Rules :- 
+     Rules :- 
 
-1)There is no checkmate as of yet,you need to capture the opponents king
+1)Moving square is indicated as in normal chess,for example "e2" indicates king pawn sqaure at the beginning of the game 
 
-2)There is no indication of check,and hence some illegal moves are possible
+2)Follows standard chess rules,with a couple of exceptions indicated below.
 
-3)Stalemate currently doesn't encompass all possiblities
+3)After checkmating,you need to capture the opponents king in order to win the game.
+
+4)The program does not indicate checks
+
+5)In some cases of stalemate,program currently doesn't indicate stalemate
