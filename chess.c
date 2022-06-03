@@ -3,7 +3,7 @@
 #include <time.h>
 #include <stdlib.h>
 
-//TODO: CHECK,CHECKMATE,DRAW,BETTER DISPLAY
+//TODO: CHECK,STALEMATE,BETTER DISPLAY
 
 int chessboard[8][8]={{12,13,14,15,16,14,13,12},
                       {11,11,11,11,11,11,11,11},
@@ -49,7 +49,7 @@ int numberofpieces=16;    //Number of pieces on chessboard
 /*For move_counter, 1 indicates white is making a move and 0 indicates black is making a move*/
 
 
-int mod(int num)    //To find modulus of a number
+int mod(int num)    //Modulus of a number
 {
     if(num>0)
         return num;
@@ -108,7 +108,7 @@ void message_toss()    //To decide who plays with white
 }
 
 
-int polarity()    //Returns 1 if invalid move,0 if valid
+int polarity()    //Returns 1 if invalid piece chosen,0 if valid
 {
     if(move_counter)
     {
@@ -137,22 +137,22 @@ void pawn_promote()    //Promotes pawn
     {
         switch (promote)
         {
-            case 1: 
+            case 1:    //White Queen promotion
             number=number+4;
             chessboard[row2][column2]=5;
             break;
 
-            case 2:
+            case 2:    //White Rook promotion
             number=number+1;
             chessboard[row2][column2]=2;
             break;
 
-            case 3:
+            case 3:    //White Bishop promotion
             number=number+3;
             chessboard[row2][column2]=4;
             break;
 
-            case 4:
+            case 4:    //White Knight promotion
             number=number+2;
             chessboard[row2][column2]=3;
             break;
@@ -168,22 +168,22 @@ void pawn_promote()    //Promotes pawn
     {
         switch (promote)
         {
-            case 1:
+            case 1:    //Black Pawn promotion
             number=number+4;
             chessboard[row2][column2]=15;
             break;
 
-            case 2:
+            case 2:    //Black Rook promotion
             number=number+1;
             chessboard[row2][column2]=12;
             break;
 
-            case 3:
+            case 3:    //Black Bishop promotion
             number=number+3;
             chessboard[row2][column2]=14;
             break;
 
-            case 4:
+            case 4:    //Black Knight promotion
             number=number+2;
             chessboard[row2][column2]=13;
             break;
@@ -199,7 +199,7 @@ void pawn_promote()    //Promotes pawn
 }
 
 
-int sum_rowcol()    //Sum of elements along row or column
+int sum_rowcol()    //Sum of elements along row or column,used in validmove()
 {
     int sum=0,count=mod(row2+column2-row1-column1);
 
@@ -242,7 +242,7 @@ int sum_rowcol()    //Sum of elements along row or column
 }
 
 
-int sum_diagonal()    //Sum of element along diagonal
+int sum_diagonal()    //Sum of element along diagonal,used in validmove()
 {
     int sum=0,slope=(row2-row1)/(column2-column1),count=mod(column2-column1);
 
@@ -278,7 +278,7 @@ int validmove()    //Checks if move is valid(Returns 1 if invalid,0 if valid)
     {
         switch (chessboard[row1][column1])
         {
-            case 1:
+            case 1:    //White pawn logic
             if(chessboard[row2][column2])
             {
                 if(row1-row2==1 && mod(column1-column2)==1)
@@ -297,35 +297,35 @@ int validmove()    //Checks if move is valid(Returns 1 if invalid,0 if valid)
             break;
 
             
-            case 2:
+            case 2:    //White rook logic
             if(row2==row1 || column2==column1)
                 return sum_rowcol();
             break;
 
             
-            case 3:
+            case 3:    //White knight logic
             if(mod(row2-row1)==2 && mod(column2-column1)==1)
                 return 0;
             if(mod(row2-row1)==1 && mod(column2-column1)==2)
                 return 0;
             break;
             
-            case 4:
-            if(mod((column2-column1)/(row2-row1))==1)
+            case 4:    //White bishop logic
+            if(mod(column2-column1)==mod(row2-row1))
                 return sum_diagonal();
             break;
             
 
-            case 5:
+            case 5:    //White queen logic
             if(row2==row1 || column2==column1)
                 return sum_rowcol();
-            else if(mod((column2-column1)/(row2-row1))==1)
+            else if(mod(column2-column1)==mod(row2-row1))
                 return sum_diagonal();
             break;
 
             
-            case 6:
-            if(mod(row2-row1)<=1 &&mod(column2-column1)<=1)
+            case 6:    //White king logic
+            if(mod(row2-row1)<=1 && mod(column2-column1)<=1)
                 return 0;
             break;
 
@@ -339,7 +339,7 @@ int validmove()    //Checks if move is valid(Returns 1 if invalid,0 if valid)
     {
         switch (chessboard[row1][column1])
         {
-            case 11:
+            case 11:    //Black pawn logic
             if(chessboard[row2][column2])
             {
                 if(row2-row1==1 && mod(column1-column2)==1)
@@ -358,13 +358,13 @@ int validmove()    //Checks if move is valid(Returns 1 if invalid,0 if valid)
             break;
 
             
-            case 12:
+            case 12:    //Black rook logic 
             if(row2==row1 || column2==column1)
                 return sum_rowcol();
             break;
 
             
-            case 13:
+            case 13:    //Black knight logic
             if(mod(row2-row1)==2 && mod(column2-column1)==1)
                 return 0;
             if(mod(row2-row1)==1 && mod(column2-column1)==2)
@@ -372,22 +372,22 @@ int validmove()    //Checks if move is valid(Returns 1 if invalid,0 if valid)
             break;
 
             
-            case 14:
-            if(mod((column2-column1)/(row2-row1))==1)
+            case 14:    //Black bishop logic
+            if(mod(column2-column1)==mod(row2-row1))
                 return sum_diagonal();
             break;
 
 
-            case 15:
-            if(mod((column2-column1)/(row2-row1))==1)
+            case 15:    //Black queen logic
+            if(mod(column2-column1)==mod(row2-row1))
                 return sum_diagonal();
             else if(row2==row1 || column2==column1)
                 return sum_rowcol();
             break;
 
             
-            case 16:
-            if(mod(row2-row1)<=1 &&mod(column2-column1)<=1)
+            case 16:    //Black king logic
+            if(mod(row2-row1)<=1 && mod(column2-column1)<=1)
                 return 0;
             break;
 
@@ -403,20 +403,21 @@ int validmove()    //Checks if move is valid(Returns 1 if invalid,0 if valid)
 }
 
 
-int check()    //Checks if player is in check    //LATER[3]
+int check()    //Checks if player is in check    //Later
 {
     return 0;
 
 }
 
+int flag=0;    //Flag variable for checkmate
 
-int checkmate()    //Checks if player is checkmated    //LATER[5]
+int checkmate()    //Checks if player is checkmated   //Later,currently checkmate works by capturing king    
 {
     return 0;
 }
 
 
-int checkdraw()    //Checks if game is drawn    //IMPROVE FOR STALEMATE[3]
+int checkdraw()    //Checks if game is drawn,stalemate to be added still
 {
     switch(numberofpieces)    //Draw by insufficient pieces
     {
@@ -459,7 +460,7 @@ int checkdraw()    //Checks if game is drawn    //IMPROVE FOR STALEMATE[3]
 }
 
 
-void display_board()    //White - capital letters,Black - small letters,using horse instead of knight //LATER[3]
+void display_board()    //White - capital letters,Black - small letters,using horse instead of knight 
 {
     int i=0,j=0;
     printf("\n");
@@ -540,8 +541,6 @@ void display_board()    //White - capital letters,Black - small letters,using ho
 
 }
 
-int flag=0;    //LATER REMOVE[5]
-
 void game()    //Game logic    
 {
 
@@ -588,7 +587,7 @@ void game()    //Game logic
         temp1=validmove()+polarity();
         if(temp1)
         {
-            printf("\n Invalid move");
+            printf("\n INVALID MOVE");
             display_board();
             continue;
         }
@@ -638,14 +637,14 @@ void game()    //Game logic
 }
 
 
-void message_end()    //Win or Draw message    //LATER REMOVE FLAG[5]
+void message_end()    //Win or Draw message    
 {
     if(checkmate()||flag)    
     {
 
         if(move_counter)
         {
-            printf("\n\n\t wins the game\n");
+            printf("\n\n\tBlack wins the game\n");
         }
         else
         {
@@ -663,7 +662,7 @@ void message_end()    //Win or Draw message    //LATER REMOVE FLAG[5]
 
 
 
-int main()    //REMOVE FLAG[5]
+int main()    
 {
     message_start();
 
