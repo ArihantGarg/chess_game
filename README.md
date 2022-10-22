@@ -2,7 +2,7 @@
 
 This is a repository containing the code for running a basic chess game
 
-     Rules :- 
+## Rules :- 
 
 1)Moving square is indicated as in normal chess,for example "e2" indicates king pawn sqaure at the beginning of the game 
 
