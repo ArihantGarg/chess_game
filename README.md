@@ -1,4 +1,5 @@
-# chess_game
+# Chess Game
+
 This is a repository containing the code for running a basic chess game
 
      Rules :- 
@@ -10,5 +11,3 @@ This is a repository containing the code for running a basic chess game
 3)After checkmating,you need to capture the opponents king in order to win the game.
 
 4)The program does not indicate checks
-
-5)In some cases of stalemate,program currently doesn't indicate stalemate
